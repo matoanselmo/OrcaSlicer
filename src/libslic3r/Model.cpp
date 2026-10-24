@@ -1117,6 +1117,15 @@ ModelObject::~ModelObject()
     this->clear_instances();
 }
 
+void ModelObject::save_mesh_if_volumes_changed()
+{
+    std::vector<ObjectID> volume_ids2;
+    std::transform(volumes.begin(), volumes.end(), std::back_inserter(volume_ids2), std::mem_fn(&ObjectBase::id));
+    if (volume_ids != volume_ids2)
+        Slic3r::save_object_mesh(*this);
+    volume_ids.clear();
+}
+
 // maintains the m_model pointer
 ModelObject& ModelObject::assign_copy(const ModelObject &rhs)
 {

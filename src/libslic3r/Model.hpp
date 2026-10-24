@@ -697,12 +697,10 @@ private:
             m_bounding_box_exact, m_bounding_box_exact_valid, m_min_max_z_valid,
             m_raw_bounding_box, m_raw_bounding_box_valid, m_raw_mesh_bounding_box, m_raw_mesh_bounding_box_valid,
             cut_connectors, cut_id);
-        std::vector<ObjectID> volume_ids2;
-        std::transform(volumes.begin(), volumes.end(), std::back_inserter(volume_ids2), std::mem_fn(&ObjectBase::id));
-        if (volume_ids != volume_ids2)
-            Slic3r::save_object_mesh(*this);
-        volume_ids.clear();
+        this->save_mesh_if_volumes_changed();
     }
+    // Defined in Model.cpp: ModelVolume is incomplete here, which breaks C++20 builds.
+    void save_mesh_if_volumes_changed();
 
     // Called by Print::validate() from the UI thread.
     unsigned int update_instances_print_volume_state(const BuildVolume &build_volume);
