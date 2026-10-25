@@ -230,7 +230,7 @@ struct SurfaceFillParams
     // Orca: fixed_angle
     bool        fixed_angle = false;
     // Is bridging used for this fill? Bridging parameters may be used even if this->flow.bridge() is not set.
-    bool 			bridge;
+    bool 			bridge = false;
     // Non-negative for a bridge.
     float 			bridge_angle = 0.f;
 
